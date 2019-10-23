@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from adventure.models import Player, Room
 
+Room.objects.all().delete()
+
 f = open('room_names.txt', 'r')
 room_names_file = f.read().split("\n")
 f.close()
