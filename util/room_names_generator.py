@@ -21,3 +21,8 @@ for i in range(len(room_objects_array)):
 
 for i in range(len(room_objects_array) - 1):
     room_objects_array[i].connectRooms(room_objects_array[i + 1], "n")
+
+players=Player.objects.all()
+for p in players:
+  p.currentRoom=1
+  p.save()
