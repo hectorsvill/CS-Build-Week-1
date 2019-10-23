@@ -4,5 +4,10 @@ from django.db import models
 """ Plan ---
 """
 
-class Map:
+class draw_map():
 	pass
+	# Get all rooms
+	#For each room in rooms...
+		# Draw the room
+		# draw each exit
+
