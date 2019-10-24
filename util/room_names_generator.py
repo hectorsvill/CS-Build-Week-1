@@ -19,11 +19,25 @@ for room in room_names_dict:
 for i in range(len(room_objects_array)):
     room_objects_array[i].save()
 
-for i in range(len(room_objects_array) - 1):
-    room_objects_array[i].connectRooms(room_objects_array[i + 1], "n")
+going_up = True
 
-for i in range(1, len(room_objects_array)):
-    room_objects_array[i].connectRooms(room_objects_array[i - 1], "s")
+for i in range(len(room_objects_array) - 1):
+    if (i + 1) % 5 == 0 and i < len(room_objects_array) - 10:
+        room_objects_array[i].connectRooms(room_objects_array[i + 10], "e")
+        room_objects_array[i + 10].connectRooms(room_objects_array[i], "w")
+    if (i + 1) % 10 == 0:
+        going_up = not going_up
+        room_objects_array[i].connectRooms(room_objects_array[i + 1], "e")
+        room_objects_array[i + 1].connectRooms(room_objects_array[i], "w")
+    elif going_up == True:
+        room_objects_array[i].connectRooms(room_objects_array[i + 1], "n")
+        room_objects_array[i + 1].connectRooms(room_objects_array[i], "s")
+    elif going_up == False:
+        room_objects_array[i].connectRooms(room_objects_array[i + 1], "s")
+        room_objects_array[i + 1].connectRooms(room_objects_array[i], "n")
+
+room_objects_array[len(room_objects_array) - 1].connectRooms(room_objects_array[0], "w")
+room_objects_array[0].connectRooms(room_objects_array[len(room_objects_array) - 1], "e")
 
 players=Player.objects.all()
 for p in players:
