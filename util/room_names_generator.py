@@ -1,3 +1,5 @@
+
+import random
 from django.contrib.auth.models import User
 from adventure.models import Player, Room
 
@@ -21,10 +23,18 @@ for i in range(len(room_objects_array)):
 
 going_up = True
 
+
+
+def getColSetARoom(ran):
+    room_objects_array[ran].connectRooms(room_objects_array[ran + 10], "e")
+    room_objects_array[ran + 10].connectRooms(room_objects_array[ran], "w")
+
 for i in range(len(room_objects_array) - 1):
-    if (i + 1) % 5 == 0 and i < len(room_objects_array) - 10:
-        room_objects_array[i].connectRooms(room_objects_array[i + 10], "e")
-        room_objects_array[i + 10].connectRooms(room_objects_array[i], "w")
+    
+    if (i + 1) % 10 == 0:
+        ran = random.randint(i - 8, i - 1)
+        getColSetARoom(ran)
+    
     if (i + 1) % 10 == 0:
         going_up = not going_up
         room_objects_array[i].connectRooms(room_objects_array[i + 1], "e")
