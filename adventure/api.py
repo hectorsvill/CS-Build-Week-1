@@ -65,3 +65,33 @@ def move(request):
 def say(request):
     # IMPLEMENT
     return JsonResponse({'error':"Not yet implemented"}, safe=True, status=500)
+
+
+
+@csrf_exempt
+@api_view(["GET"])
+def rooms(request):
+    rooms_json = dict()
+
+    for room in Room.objects.all():
+        d = {
+            'title': room.title,
+            'description': room.description,
+            'n_to': room.n_to,
+            's_to': room.s_to,
+            'w_to': room.w_to,
+            'e_to': room.e_to,
+        }
+        
+        rooms_json[room.title] = d
+
+    return JsonResponse(rooms_json, safe=True)
+
+
+@csrf_exempt
+@api_view(["GET"])
+def current_player(request):
+    player = Player.objects
+    print(player)
+
+    return JsonResponse({'player': 'me'}, safe=True)
